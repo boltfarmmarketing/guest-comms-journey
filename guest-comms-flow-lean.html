@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guest Comms Journey — Lean Version with Sample Messages — Bolt Farm Treehouse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ovo&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dark-green:#335338; --dark-green-deep:#2a3c30; --dark-slate-grey:#383a42;
+  --seashell:#fff9f3; --white:#FEFDFB; --sienna:#866042; --burlywood:#ddc087;
+  --powder-blue:#b7ccbc; --radius:16px;
+  --keep:#335338; --trim:#3b6ea5; --cut:#a8463c;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Ovo',serif;background:var(--seashell);color:var(--dark-slate-grey);line-height:1.7;font-size:16px;}
+
+.hero{background:linear-gradient(165deg,#2a3c30 0%,var(--dark-green) 40%,#3A5F4F 70%,var(--powder-blue) 100%);
+  color:var(--white);text-align:center;padding:64px 24px 54px;}
+.hero .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:2.2px;opacity:.7;margin-bottom:14px;}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.15;margin-bottom:16px;}
+.hero h1 em{font-style:italic;color:var(--burlywood);}
+.hero p{font-size:16px;opacity:.88;max-width:620px;margin:0 auto;text-wrap:balance;}
+.hero a.back{display:inline-block;margin-top:20px;font-size:13px;color:var(--burlywood);text-decoration:none;
+  border:1px solid rgba(221,192,135,.5);padding:9px 20px;border-radius:var(--radius);}
+
+.wrap{max-width:920px;margin:0 auto;padding:44px 24px 80px;}
+
+.impact{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:30px;}
+@media(max-width:680px){.impact{grid-template-columns:1fr;}}
+.stat{background:var(--white);border:1px solid rgba(183,204,188,.35);border-radius:var(--radius);padding:22px 20px;
+  text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.02);}
+.stat .big{font-size:30px;color:var(--dark-green);}
+.stat .big .arrow{color:var(--sienna);opacity:.6;margin:0 6px;font-size:22px;}
+.stat .lbl{font-size:12.5px;text-transform:uppercase;letter-spacing:1.2px;color:var(--sienna);margin-top:6px;}
+
+.legend{display:flex;flex-wrap:wrap;gap:12px 24px;background:var(--white);border:1px solid rgba(183,204,188,.3);
+  border-radius:var(--radius);padding:18px 22px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.legend .lg{display:flex;align-items:center;gap:8px;font-size:13px;}
+.tag{font-size:11px;letter-spacing:.5px;padding:3px 10px;border-radius:20px;white-space:nowrap;}
+.tag.keep{background:rgba(51,83,56,.12);color:var(--keep);border:1px solid rgba(51,83,56,.3);}
+.tag.trim{background:rgba(59,110,165,.1);color:var(--trim);border:1px solid rgba(59,110,165,.3);}
+.tag.cut{background:rgba(168,70,60,.1);color:var(--cut);border:1px solid rgba(168,70,60,.3);}
+
+.phase-band{margin:46px 0 18px;padding:20px 24px;border-radius:var(--radius);background:var(--dark-green);color:var(--white);}
+.phase-band .section-label{font-size:11px;text-transform:uppercase;letter-spacing:2.2px;color:var(--powder-blue);margin-bottom:6px;}
+.phase-band h2{font-size:26px;}
+
+.spine{display:flex;flex-direction:column;align-items:center;}
+.arrow{width:2px;height:24px;background:var(--sienna);opacity:.5;position:relative;}
+.arrow::after{content:'';position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);
+  border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--sienna);}
+
+.node{background:var(--white);border:1px solid rgba(183,204,188,.35);border-left:5px solid var(--dark-green);
+  border-radius:12px;padding:16px 18px;max-width:640px;width:100%;
+  box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.02);}
+.node.trim{border-left-color:var(--trim);}
+.node.cut{border-left-color:var(--cut);opacity:.92;}
+.node.start{border:2px solid var(--burlywood);background:#fffdf6;text-align:center;max-width:440px;}
+.node.complete{border:2px solid var(--dark-green);background:var(--dark-green);color:var(--white);text-align:center;max-width:460px;}
+.node.complete .title{color:var(--white);font-size:19px;}
+.node.complete .desc{color:var(--white);opacity:.9;}
+.node .top{display:flex;align-items:center;gap:10px;margin-bottom:5px;flex-wrap:wrap;}
+.node .title{font-size:16px;line-height:1.25;}
+.node .meta{font-size:11.5px;color:var(--sienna);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px;}
+.node .meta .chan{display:inline-block;background:rgba(134,96,66,.12);padding:1px 7px;border-radius:4px;margin-left:4px;}
+.node .desc{font-size:13.5px;opacity:.9;}
+.node .was{font-size:12.5px;margin-top:8px;padding:7px 11px;border-radius:8px;}
+.node .was.cutbox{background:rgba(168,70,60,.08);border-left:3px solid var(--cut);color:#7d342c;}
+.node .was.trimbox{background:rgba(59,110,165,.08);border-left:3px solid var(--trim);color:#2d5378;}
+.node .was b{color:inherit;}
+.node .was.cutbox b{color:var(--cut);}
+.node .was.trimbox b{color:var(--trim);}
+
+/* message previews */
+.msg{margin:10px 0 2px;}
+.msg-head{font-size:10.5px;text-transform:uppercase;letter-spacing:1.1px;display:flex;gap:8px;align-items:center;
+  margin-bottom:5px;color:var(--sienna);}
+.cb{padding:2px 8px;border-radius:5px;font-size:10px;letter-spacing:.5px;}
+.cb.sms{background:rgba(51,83,56,.16);color:var(--dark-green);}
+.cb.email{background:rgba(59,110,165,.14);color:var(--trim);}
+.bubble{font-size:13px;line-height:1.6;border-radius:14px;padding:12px 15px;}
+.bubble.sms{background:#eef4ee;border:1px solid rgba(51,83,56,.18);border-bottom-left-radius:4px;}
+.bubble.email{background:#f4f8fc;border:1px solid rgba(59,110,165,.22);}
+.bubble.email .subj{font-size:12px;color:var(--trim);border-bottom:1px solid rgba(59,110,165,.18);
+  padding-bottom:6px;margin-bottom:8px;letter-spacing:.3px;}
+.bubble .var{color:var(--sienna);}
+.switch{font-size:12.5px;background:rgba(221,192,135,.16);border-left:3px solid var(--burlywood);border-radius:8px;
+  padding:8px 12px;margin-top:9px;color:#7a5a37;}
+.switch b{color:var(--sienna);}
+
+.footer{text-align:center;padding:30px 24px 40px;font-size:12px;color:var(--dark-slate-grey);opacity:.55;
+  border-top:1px solid rgba(56,58,66,.12);max-width:920px;margin:30px auto 0;}
+.editnote{max-width:920px;margin:24px auto 0;font-size:12px;opacity:.6;text-align:center;font-style:italic;}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">Bolt Farm Treehouse</div>
+  <h1>Guest Comms Journey — <em>Lean</em> Version</h1>
+  <p>The streamlined booking-to-completion flow, now with sample SMS &amp; email copy in each step — adapted from your current messages. Channel-switch suggestions flagged in gold.</p>
+  <a class="back" href="guest-comms-flow-chart.html">← Back to full flow (with friction flags)</a>
+</header>
+
+<div class="wrap">
+
+  <div class="impact">
+    <div class="stat"><div class="big">5<span class="arrow">→</span>2</div><div class="lbl">Texts on the peak in-stay day</div></div>
+    <div class="stat"><div class="big">~28<span class="arrow">→</span>~20</div><div class="lbl">Total touchpoints (typical guest, est.)</div></div>
+    <div class="stat"><div class="big">3<span class="arrow">→</span>1</div><div class="lbl">Sales pitches on the busiest stay day</div></div>
+  </div>
+
+  <div class="legend">
+    <div class="lg"><span class="tag keep">✓ KEPT</span> Unchanged — earns its place</div>
+    <div class="lg"><span class="tag trim">↻ MERGED / RETIMED</span> Same goal, less friction</div>
+    <div class="lg"><span class="tag cut">✕ REMOVED</span> Redundant or premature</div>
+    <div class="lg"><span class="cb sms">SMS</span> Text</div>
+    <div class="lg"><span class="cb email">EMAIL</span> Email</div>
+    <div class="lg"><span style="color:var(--sienna);">▣ gold note</span> = suggested channel change</div>
+  </div>
+
+  <!-- ───────────── PRE-ARRIVAL ───────────── -->
+  <div class="phase-band"><div class="section-label">Phase 1</div><h2>Pre-Arrival</h2></div>
+  <div class="spine">
+
+    <div class="node start"><div class="title">✅ Reservation Confirmed</div>
+      <div class="desc">Channel gate applies — phone bookings skip all concierge-call promo.</div></div>
+    <div class="arrow"></div>
+
+    <div class="node trim"><div class="top"><span class="tag trim">↻ MERGED</span><span class="title">Confirmation — single welcome</span></div>
+      <div class="meta">On booking<span class="chan">Email now</span><span class="chan">+ 1 text ~1 hr later</span></div>
+      <div class="desc">Detailed confirmation by email; one short welcome text instead of the back-to-back pair.</div>
+      <div class="msg"><div class="msg-head"><span class="cb email">EMAIL</span> immediate · all stays</div>
+        <div class="bubble email"><div class="subj"><b>Subject:</b> You're Going to Bolt Farm! 🎉 (action required — next steps inside)</div>
+        Hi <span class="var">{First Name}</span>,<br>Welcome to Bolt Farm Treehouse! Your <span class="var">{room_type}</span> from <span class="var">{checkin}</span> to <span class="var">{checkout}</span> is confirmed.<br><br>To make your getaway effortless, every guest books a quick concierge call. In 10 minutes or less we'll curate your stay, secure the best spa times &amp; experiences, and handle the details:<br>• Priority access to our most-requested experiences<br>• Personalized food &amp; activity recommendations<br>• Seamless arrival + a complimentary welcome toast 🥂<br><br>Book within 48 hours for priority access: <b>[Book Your Concierge Call]</b> → https://bit.ly/BFTconcierge<br><br>With appreciation,<br>The Bolt Farm Team<br><i>P.S. We'll text you from here — save our number; a real person reads &amp; replies.</i><br><br><i>(All-inclusive bookings: this email also lists what's included — spa treatment, 2 Wellness Haven passes, Romance package, meals — and what's billed separately.)</i></div></div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> ~1 hr later · online bookings</div>
+        <div class="bubble sms">Welcome to Bolt Farm, <span class="var">{First Name}</span>! 🎉 Your <span class="var">{room_type}</span> <span class="var">{checkin}–{checkout}</span> is confirmed. Check your email to book your 10-min concierge call (priority access + a welcome toast 🥂). Save this number — text us anytime, a real person replies. 👋</div></div>
+      <div class="was trimbox"><b>Was #1 + #2 (×2):</b> 3 near-identical messages within minutes. Now 1 email + 1 delayed text.</div></div>
+    <div class="arrow"></div>
+
+    <div class="node trim"><div class="top"><span class="tag trim">↻ TRIMMED</span><span class="title">Concierge Call Nudges</span></div>
+      <div class="meta">21 days &amp; 72 hrs before · IF not booked<span class="chan">SMS</span></div>
+      <div class="desc">Two nudges instead of three; food-program video attached to the first.</div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> 21 days before · 12 PM</div>
+        <div class="bubble sms">Hi <span class="var">{First Name}</span> — it's your Bolt Farm Concierge ✨ Your magical getaway is coming up! Our on-site experiences &amp; top spa times fill quickly ⏳ Book your 10-min concierge call for priority access + a complimentary welcome toast: https://bit.ly/BFTconcierge<br><br>P.S. Seth &amp; Tori made a quick video on our food program — worth a watch before your call: https://youtube.com/shorts/nqMbAcooP50</div></div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> 72 hrs before · 12 PM · IF still not booked</div>
+        <div class="bubble sms">It's time to finalize all the fun (spa, wellness, food &amp; experiences) so all you have to do is arrive. Book your Bolt Farm Concierge Call now: https://bit.ly/BFTconcierge</div></div>
+      <div class="was trimbox"><b>Was #3 + #3b + #3c (+ standalone #3a video):</b> 3 nudges + a separate video. Now 2, video embedded.</div></div>
+    <div class="arrow"></div>
+
+    <div class="node"><div class="top"><span class="tag keep">✓ KEPT</span><span class="title">Split-Stay Moving-Day Spa Upsell</span></div>
+      <div class="meta">7 days before · 12 PM · IF split stay + no spa that day<span class="chan">SMS</span></div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span></div>
+        <div class="bubble sms">We're so excited for your arrival! Since you'll enjoy two of our villas, "moving day" is the perfect time for a spa treatment while we prep your next villa. This week only: <b>$150 off Signature Spa Experiences</b> (+ complimentary Wellness Haven passes, a $350 value). Book in 10 seconds: <span class="var">{spa_link}</span></div></div></div>
+    <div class="arrow"></div>
+
+    <div class="node trim"><div class="top"><span class="tag trim">↻ RETIMED + CHANNEL</span><span class="title">Arrival Info + Check-in Form</span></div>
+      <div class="meta">7 days before · 5 PM local<span class="chan">Email + SMS nudge</span></div>
+      <div class="desc">Reference info (address, directions, time zone) as a saveable email; short SMS drives the form + ETA.</div>
+      <div class="msg"><div class="msg-head"><span class="cb email">EMAIL</span> the details</div>
+        <div class="bubble email"><div class="subj"><b>Subject:</b> Your arrival details for Bolt Farm 🌲 (one week to go!)</div>
+        Hi <span class="var">{First Name}</span> — only one week until the magic! Here's everything for a smooth arrival:<br><br>📍 <b>600 English Cove Rd, Whitwell, TN 37397</b><br>🕒 Check-in <b>3–6pm CT</b> at the Welcome Dome (the large dome on the left). We're on Central Time, right on the CT/ET line — some phones auto-switch on the drive.<br>✅ Please complete your 2-minute check-in form (includes vehicle info): <span class="var">{form_link}</span><br><br><b>What time should we expect you?</b> Just reply with your ETA — if you'll arrive after 6pm CT we'll send self-check-in info.<br><br><i>(Early check-in guests: your start time of noon / 1pm CT is noted here instead of 3pm.)</i></div></div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> the nudge</div>
+        <div class="bubble sms">One week until Bolt Farm! 🎉 We just emailed your arrival details + a quick 2-min check-in form: <span class="var">{form_link}</span>. What time should we expect you on <span class="var">{date}</span>?</div></div>
+      <div class="switch"><b>▣ Suggested channel change → Email (+ SMS nudge).</b> Address, directions and the time-zone note are reference info guests re-open on the drive — email is saveable &amp; map-tappable. The SMS still drives the form &amp; ETA.</div></div>
+    <div class="arrow"></div>
+
+    <div class="node trim"><div class="top"><span class="tag trim">↻ TRIMMED</span><span class="title">Check-in Form Reminder</span></div>
+      <div class="meta">Day before (incl. ETA) → arrival-day final · IF incomplete<span class="chan">SMS</span></div>
+      <div class="desc">Two reminders max; ETA ask folded into the first. Late-arrival self-check-in branch unchanged.</div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> day before · 9 AM</div>
+        <div class="bubble sms">Quick nudge, <span class="var">{First Name}</span> — finishing your 2-minute check-in form makes arrival a breeze: <span class="var">{form_link}</span>. Also, what time should we expect you? If you'll arrive after 6pm CT we'll send self-check-in info. Safe travels!</div></div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> arrival day · 12 PM · IF still incomplete</div>
+        <div class="bubble sms">To prep for your arrival, please take a moment to complete your Check-in Form &amp; Waiver: <span class="var">{form_link}</span>. Once it's in, you're all set for a smooth check-in — can't wait to welcome you!</div></div>
+      <div class="was trimbox"><b>Was #5c + #5d + #5e:</b> up to 3 reminders + a separate ETA text. Now 2, ETA merged.</div></div>
+
+  </div>
+
+  <!-- ───────────── ARRIVAL ───────────── -->
+  <div class="phase-band"><div class="section-label">Phase 2</div><h2>Arrival &amp; On-Site</h2></div>
+  <div class="spine">
+
+    <div class="node start" style="border-color:var(--dark-green);"><div class="title">🏡 Host marks "ARRIVED"</div></div>
+    <div class="arrow"></div>
+
+    <div class="node"><div class="top"><span class="tag keep">✓ KEPT</span><span class="title">Villa Details</span></div>
+      <div class="meta">Auto on arrival<span class="chan">SMS</span></div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span></div>
+        <div class="bubble sms">Welcome to Bolt Farm, <span class="var">{First Name}</span>! 🌲<br>Villa <span class="var">{room_number}</span> • Door code <span class="var">{door_code}</span><br>Your guidebook (wifi, map &amp; more): <span class="var">{mini_app_link}</span><br>Daily housekeeping is 12–4pm — reply <b>SKIP</b> to opt out. On-site hosts are here 10am–7pm CT. Need anything? Just reply.</div></div></div>
+    <div class="arrow"></div>
+
+    <div class="node trim"><div class="top"><span class="tag trim">↻ RETIMED</span><span class="title">Happy Hour — invite + same-day reminder</span></div>
+      <div class="meta">~2 hrs after check-in, then HH day 4 PM<span class="chan">SMS</span></div>
+      <div class="desc">One invite once settled, one "starting now" on HH days. (Separate "last call" removed.)</div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> invite · IF not yet RSVP'd</div>
+        <div class="bubble sms">Happy Hour tomorrow at 4pm 🍷🧀🎶 Live music, cocktails, light bites &amp; a giveaway with other amazing couples. Reply <b>"YES"</b> to RSVP — your first drink's on us (excludes cocktails). 📍 Welcome Dome</div></div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> invite · IF already RSVP'd</div>
+        <div class="bubble sms">You're all set for Happy Hour tomorrow at 4pm 🥂 Live music, cocktails, light bites &amp; a giveaway — your first drink's on us. See you at the Welcome Dome!</div></div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> HH day · 4 PM</div>
+        <div class="bubble sms">Happy Hour is starting now! 🍷🧀🎶 Live music, light bites, cocktails &amp; a giveaway at the Welcome Dome (ends 6pm). See you there!</div></div>
+      <div class="was cutbox"><b>✕ Removed #10 HH Last Call</b> + the 1-min-after-check-in trigger. HH now = 2 msgs, not 3–4.</div></div>
+    <div class="arrow"></div>
+
+    <div class="node trim"><div class="top"><span class="tag trim">↻ CAPPED</span><span class="title">Day-After: service + one offer</span></div>
+      <div class="meta">Day after arrival · max ~1 promo/day<span class="chan">SMS</span></div>
+      <div class="desc">Keep the service prompt; one offer max (spa, only if not already pitched/booked).</div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> service prompt · 9 AM</div>
+        <div class="bubble sms">Good morning, <span class="var">{First Name}</span>! We've scheduled a light villa refresh between 12–4pm — reply <b>YES</b> to confirm or <b>SKIP</b> by 10am. Quiet hours &amp; dark-sky tips are in your guidebook. On-site help 9am–7pm CT — just reply.</div></div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> the one offer · IF no spa pitched/booked</div>
+        <div class="bubble sms">Today only: a free hot-stones upgrade for the first 5 couples to book a spa treatment 💆 Reply <b>"SPA"</b> and we'll handle the rest. (If today's full, we'll set you up for after checkout 👌)</div></div>
+      <div class="was cutbox"><b>✕ Fixed the pile-up:</b> was up to 5 texts in a day (Wellness + #9 + #10 + #11 + #12). Referral moved out; HH consolidated.</div></div>
+    <div class="arrow"></div>
+
+    <div class="node trim"><div class="top"><span class="tag trim">↻ RETIMED</span><span class="title">Referral — one in-stay ask</span></div>
+      <div class="meta">Evening of day 2 / after Happy Hour<span class="chan">SMS</span></div>
+      <div class="desc">A single ask after a peak moment. Post-stay ask (#20) kept.</div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span></div>
+        <div class="bubble sms">Loving it up here? 🤩 When you post, your friends will ask "where IS this?!" 🎁 Gift them $100 off Bolt Farm — when they book, you get $100 resort credit to use on this stay. Grab your private link: https://explore.boltfarmtreehouse.com/referral-program</div></div>
+      <div class="was cutbox"><b>✕ Removed #11</b> (was ~21 hrs after #8). <b>↻ Retimed #8</b> off check-in day.</div></div>
+    <div class="arrow"></div>
+
+    <div class="node"><div class="top"><span class="tag keep">✓ KEPT</span><span class="title">Rebooking Offer</span></div>
+      <div class="meta">Night before departure · 6:30 PM · IF not rebooked<span class="chan">SMS</span></div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span></div>
+        <div class="bubble sms">⏳ Claim your $425+ in return perks (expires at checkout)! Say <b>"Yes!"</b> to your next escape:<br>• Complimentary Bolt Farm Robe ($125)<br>• $150/day signature spa credit on your next stay<br>• 90 days to choose dates + free rescheduling<br>• Just $299 to reserve (100% applied to your stay)<br>✨ Re-live the magic: <span class="var">{rebook_link}</span></div></div>
+      <div class="desc" style="margin-top:8px;">→ Deposit confirmation (#13a) on purchase, unchanged.</div></div>
+
+  </div>
+
+  <!-- ───────────── POST-STAY ───────────── -->
+  <div class="phase-band"><div class="section-label">Phase 3</div><h2>Departure &amp; Post-Stay</h2></div>
+  <div class="spine">
+
+    <div class="node cut"><div class="top"><span class="tag cut">✕ REMOVED</span><span class="title">Rebooking Last Call (#15)</span></div>
+      <div class="meta">— was departure day · 9:10 AM —<span class="chan">SMS</span></div>
+      <div class="desc">Cut the morning-of duplicate. Optional safety net: fire <em>only</em> if #13 went unopened.</div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> removed copy (for reference)</div>
+        <div class="bubble sms" style="opacity:.6;text-decoration:line-through;">Last call to claim $425+ in return perks — ends at checkout. Reserve with $299 today; flexible payments after. Book in 60 seconds: {rebook_link}</div></div>
+      <div class="was cutbox"><b>✕ Removed:</b> two rebooking pitches in ~15 hrs at the trip's emotional end.</div></div>
+    <div class="arrow"></div>
+
+    <div class="node"><div class="top"><span class="tag keep">✓ KEPT</span><span class="title">Split-Stay Moving Day (#14 / 14a)</span></div>
+      <div class="meta">Moving day · 9:20 AM · split stay only<span class="chan">SMS</span></div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span></div>
+        <div class="bubble sms">Good morning, <span class="var">{First Name}</span> — we're prepping your next villa! Please check out of your current villa by 10am CT; leave your packed luggage inside and we'll move everything for you. Check-in starts at <span class="var">{noon/3pm}</span> — we'll text if it's ready early.</div></div></div>
+    <div class="arrow"></div>
+
+    <div class="node"><div class="top"><span class="tag keep">✓ KEPT</span><span class="title">Checkout Details + Survey</span></div>
+      <div class="meta">Departure day · 9:35 AM<span class="chan">SMS</span></div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span></div>
+        <div class="bubble sms">Good morning, <span class="var">{First Name}</span>! Checkout is at <span class="var">{10am/12pm}</span> CT — log out of streaming, grab your belongings, and we'll handle the rest. 🎁 Unlock your farewell gift with 60 seconds of feedback: <span class="var">{survey_link}</span>. We read every one — your gift will be waiting at the Welcome Dome.</div></div></div>
+    <div class="arrow"></div>
+
+    <div class="node"><div class="top"><span class="tag keep">✓ KEPT</span><span class="title">Feedback Routing</span></div>
+      <div class="meta">Instant on submit<span class="chan">SMS</span></div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> rated 4.8+</div>
+        <div class="bubble sms">Your feedback made our day, thank you! 🙏 Last step: copy your note into a public review and we'll tip our team $50 in your honor: <span class="var">{review_link}</span>. It also helps future couples find Bolt Farm 🫶</div></div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> rated 4.7 or below</div>
+        <div class="bubble sms">Thank you for the honest feedback, <span class="var">{First Name}</span>. We aim for excellence and fell short. What's the one thing that would've made this a 5/5? Reply with the single biggest fix — we'll do our best to make it right.</div></div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> rated 4.0 or below → leadership call</div>
+        <div class="bubble sms">Thank you for your candor, <span class="var">{First Name}</span>. I'm sorry we missed the mark. I've escalated this to leadership — please expect a call today so we can make it right. 🙏</div></div></div>
+    <div class="arrow"></div>
+
+    <div class="node"><div class="top"><span class="tag keep">✓ KEPT</span><span class="title">Rebooking Nurture / Win-Back</span></div>
+      <div class="meta">Departure → 85 days<span class="chan">SMS + Email</span></div>
+      <div class="desc">Spread over weeks — low annoyance, kept as-is.</div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> #18a · deposit buyers · departure +2 hrs</div>
+        <div class="bubble sms">Hi <span class="var">{First Name}</span> — loved hosting you! 🎉 Your Rebooking Deposit is live. Book a quick call with our Trip-Planning Experts to lock in your return perks &amp; dates: <span class="var">{link}</span></div></div>
+      <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> #18b · no deposit · 24 hrs after</div>
+        <div class="bubble sms">Hi <span class="var">{First Name}</span>! As a returning guest, enjoy complimentary Wellness Haven access for two ($350 value) on your next stay — claim within 48 hours. Our concierge will hold your preferred dates in a 10-min call: <span class="var">{call_link}</span></div></div>
+      <div class="msg"><div class="msg-head"><span class="cb email">EMAIL</span> #19 / #21 / #22 · 3, 14 &amp; 85 days · deposit not finalized</div>
+        <div class="bubble email"><div class="subj"><b>Subjects:</b> "Your Next Dose of Reconnection" → "Plan your return in 10 minutes" → "5 Days to Redeem Your Perks"</div>
+        Spaced email nudges to schedule the trip-planning call and finalize dates while perks are active. Kept as email — longer, non-urgent, easy to act on later.</div></div></div>
+    <div class="arrow"></div>
+
+    <div class="node"><div class="top"><span class="tag keep">✓ KEPT</span><span class="title">Referral 3rd Ask (#20) + Feedback Survey (#23)</span></div>
+      <div class="meta">5–7 days &amp; 3 days post-departure<span class="chan">Email</span></div>
+      <div class="msg"><div class="msg-head"><span class="cb email">EMAIL</span> #20 referral</div>
+        <div class="bubble email"><div class="subj"><b>Subject:</b> Share the magic: give $100, get $100</div>
+        Hi <span class="var">{First Name}</span> — you just unplugged and reconnected; now help someone you love do the same. Gift a friend $100 off Bolt Farm — when they book, you get $100 resort credit too (no cap). Your private link: https://explore.boltfarmtreehouse.com/referral-program</div></div>
+      <div class="msg"><div class="msg-head"><span class="cb email">EMAIL</span> #23 survey · IF not yet submitted</div>
+        <div class="bubble email"><div class="subj"><b>Subject:</b> 30 seconds to help another couple reconnect?</div>
+        Would you share 30 seconds of private feedback about your stay? It directly improves future experiences. Complete in the next 48 hours and we'll send a small thank-you (your pick from our curated perk menu). <span class="var">{survey_link}</span></div></div></div>
+    <div class="arrow"></div>
+
+    <div class="node complete"><div class="title">🎯 Journey Complete</div>
+      <div class="desc">Same outcomes, fewer interruptions. Rebookers loop back to Phase 1; others stay in spaced nurture.</div></div>
+
+  </div>
+
+  <p class="editnote">Sample copy is adapted from your current messages (Nov 25, 2025 journey) and trimmed to match the lean changes. Timings, copy &amp; channel choices are proposals — confirm against current Bolt Farm inventory &amp; Akia automation rules before going live.</p>
+
+</div>
+
+<footer class="footer">Bolt Farm Treehouse — Guest Comms Journey, Lean Version with Sample Messages</footer>
+
+</body>
+</html>
