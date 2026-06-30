@@ -91,6 +91,13 @@ body{font-family:'Ovo',serif;background:var(--seashell);color:var(--dark-slate-g
 .switch{font-size:12.5px;background:rgba(221,192,135,.16);border-left:3px solid var(--burlywood);border-radius:8px;
   padding:8px 12px;margin-top:9px;color:#7a5a37;}
 .switch b{color:var(--sienna);}
+.compliance{background:#f4f8fc;border:1px solid rgba(59,110,165,.3);border-radius:var(--radius);
+  padding:22px 26px;margin-bottom:8px;font-size:13.5px;line-height:1.65;}
+.compliance h3{font-size:15px;color:var(--trim);margin-bottom:8px;}
+.compliance ul{margin:6px 0 10px 18px;} .compliance li{margin-bottom:5px;}
+.compliance .warn{color:#a8463c;} .compliance .warn b{color:#a8463c;}
+.compliance .fine{font-size:12px;opacity:.7;margin-top:8px;}
+.opt{display:block;margin-top:9px;font-size:12px;color:var(--trim);opacity:.85;font-style:italic;}
 
 .footer{text-align:center;padding:30px 24px 40px;font-size:12px;color:var(--dark-slate-grey);opacity:.55;
   border-top:1px solid rgba(56,58,66,.12);max-width:920px;margin:30px auto 0;}
@@ -123,6 +130,21 @@ body{font-family:'Ovo',serif;background:var(--seashell);color:var(--dark-slate-g
     <div class="lg"><span style="color:var(--sienna);">▣ gold note</span> = suggested channel change</div>
   </div>
 
+  <div class="compliance">
+    <h3>📋 A2P 10DLC compliance — what changed in the SMS copy</h3>
+    <ul>
+      <li><b>First text</b> now carries full opt-in disclosure: brand name + "Msg &amp; data rates may apply. Msg frequency varies." + "Reply HELP for help, STOP to opt out."</li>
+      <li><b>Marketing texts</b> (concierge nudges, spa &amp; referral offers, Happy Hour invites, rebooking) now end with "Reply STOP to opt out."</li>
+      <li><b>Transactional texts</b> (villa/door code, arrival &amp; ETA, check-in form, checkout) omit the per-message footer — but the number must still honor STOP/HELP program-wide.</li>
+    </ul>
+    <p class="warn"><b>⚠️ Two items copy alone can't fix — handle at carrier registration:</b></p>
+    <ul>
+      <li class="warn"><b>Public link shortener:</b> <code>bit.ly</code> links are routinely filtered/blocked under 10DLC. Move to a branded short domain (e.g. <code>links.boltfarmtreehouse.com</code>).</li>
+      <li class="warn"><b>Alcohol references</b> (welcome toast 🥂, Happy Hour, "first drink's on us") fall under <b>SHAFT</b> content rules and can trigger filtering — may require age-gated opt-in or alcohol-neutral copy. <em>Ask me for alcohol-neutral variants.</em></li>
+    </ul>
+    <p class="fine">Note: full A2P compliance also requires a registered Brand &amp; Campaign, documented opt-in capture, and an automated HELP reply — these are setup steps beyond message wording.</p>
+  </div>
+
   <!-- ───────────── PRE-ARRIVAL ───────────── -->
   <div class="phase-band"><div class="section-label">Phase 1</div><h2>Pre-Arrival</h2></div>
   <div class="spine">
@@ -138,7 +160,7 @@ body{font-family:'Ovo',serif;background:var(--seashell);color:var(--dark-slate-g
         <div class="bubble email"><div class="subj"><b>Subject:</b> You're Going to Bolt Farm! 🎉 (action required — next steps inside)</div>
         Hi <span class="var">{First Name}</span>,<br>Welcome to Bolt Farm Treehouse! Your <span class="var">{room_type}</span> from <span class="var">{checkin}</span> to <span class="var">{checkout}</span> is confirmed.<br><br>To make your getaway effortless, every guest books a quick concierge call. In 10 minutes or less we'll curate your stay, secure the best spa times &amp; experiences, and handle the details:<br>• Priority access to our most-requested experiences<br>• Personalized food &amp; activity recommendations<br>• Seamless arrival + a complimentary welcome toast 🥂<br><br>Book within 48 hours for priority access: <b>[Book Your Concierge Call]</b> → https://bit.ly/BFTconcierge<br><br>With appreciation,<br>The Bolt Farm Team<br><i>P.S. Save our number; a real person reads &amp; replies.</i><br><br><i>(All-inclusive bookings: this email also lists what's included — spa treatment, 2 Wellness Haven passes, Romance package, meals — and what's billed separately.)</i></div></div>
       <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> ~1 hr later · online bookings</div>
-        <div class="bubble sms">Welcome to Bolt Farm, <span class="var">{First Name}</span>! 🎉 Your <span class="var">{room_type}</span> <span class="var">{checkin}–{checkout}</span> is confirmed. Check your email to book your 10-min concierge call (priority access + a welcome toast 🥂). Save this number — text us anytime, a real person replies. 👋</div></div>
+        <div class="bubble sms">Welcome to Bolt Farm, <span class="var">{First Name}</span>! 🎉 Your <span class="var">{room_type}</span> <span class="var">{checkin}–{checkout}</span> is confirmed. Check your email to book your 10-min concierge call (priority access + a welcome toast 🥂). Save this number — text us anytime, a real person replies. 👋<br><br>Msg &amp; data rates may apply. Msg frequency varies. Reply HELP for help, STOP to opt out.</div></div>
       <div class="was trimbox"><b>Was #1 + #2 (×2):</b> 3 near-identical messages within minutes. Now 1 email + 1 delayed text.</div></div>
     <div class="arrow"></div>
 
@@ -146,9 +168,9 @@ body{font-family:'Ovo',serif;background:var(--seashell);color:var(--dark-slate-g
       <div class="meta">21 days &amp; 72 hrs before · IF not booked<span class="chan">SMS</span></div>
       <div class="desc">Two nudges instead of three.</div>
       <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> 21 days before · 12 PM</div>
-        <div class="bubble sms">Hi <span class="var">{First Name}</span> — it's your Bolt Farm Concierge ✨ Your magical getaway is coming up! Our on-site experiences &amp; top spa times fill quickly ⏳ Book your 10-min concierge call for priority access + a complimentary welcome toast: https://bit.ly/BFTconcierge</div></div>
+        <div class="bubble sms">Hi <span class="var">{First Name}</span> — it's your Bolt Farm Concierge ✨ Your magical getaway is coming up! Our on-site experiences &amp; top spa times fill quickly ⏳ Book your 10-min concierge call for priority access + a complimentary welcome toast: https://bit.ly/BFTconcierge<br><br>Reply STOP to opt out.</div></div>
       <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> 72 hrs before · 12 PM · IF still not booked</div>
-        <div class="bubble sms">It's time to finalize all the fun (spa, wellness, food &amp; experiences) so all you have to do is arrive. Book your Bolt Farm Concierge Call now: https://bit.ly/BFTconcierge</div></div>
+        <div class="bubble sms">It's time to finalize all the fun (spa, wellness, food &amp; experiences) so all you have to do is arrive. Book your Bolt Farm Concierge Call now: https://bit.ly/BFTconcierge<br><br>Reply STOP to opt out.</div></div>
       <div class="was trimbox"><b>Was #3 + #3b + #3c (+ standalone #3a video):</b> 3 nudges + a separate video. Now 2 nudges.</div></div>
     <div class="arrow"></div>
 
@@ -191,11 +213,11 @@ body{font-family:'Ovo',serif;background:var(--seashell);color:var(--dark-slate-g
       <div class="meta">~2 hrs after check-in, then HH day 4 PM<span class="chan">SMS</span></div>
       <div class="desc">One invite once settled, one "starting now" on HH days. (Separate "last call" removed.)</div>
       <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> invite · IF not yet RSVP'd</div>
-        <div class="bubble sms">Happy Hour tomorrow at 4pm 🍷🧀🎶 Live music, cocktails, light bites &amp; a giveaway with other amazing couples. Reply <b>"YES"</b> to RSVP — your first drink's on us (excludes cocktails). 📍 Welcome Dome</div></div>
+        <div class="bubble sms">Happy Hour tomorrow at 4pm 🍷🧀🎶 Live music, cocktails, light bites &amp; a giveaway with other amazing couples. Reply <b>"YES"</b> to RSVP — your first drink's on us (excludes cocktails). 📍 Welcome Dome<br><br>Reply STOP to opt out.</div></div>
       <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> invite · IF already RSVP'd</div>
-        <div class="bubble sms">You're all set for Happy Hour tomorrow at 4pm 🥂 Live music, cocktails, light bites &amp; a giveaway — your first drink's on us. See you at the Welcome Dome!</div></div>
+        <div class="bubble sms">You're all set for Happy Hour tomorrow at 4pm 🥂 Live music, cocktails, light bites &amp; a giveaway — your first drink's on us. See you at the Welcome Dome!<br><br>Reply STOP to opt out.</div></div>
       <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> HH day · 4 PM</div>
-        <div class="bubble sms">Happy Hour is starting now! 🍷🧀🎶 Live music, light bites, cocktails &amp; a giveaway at the Welcome Dome (ends 6pm). See you there!</div></div>
+        <div class="bubble sms">Happy Hour is starting now! 🍷🧀🎶 Live music, light bites, cocktails &amp; a giveaway at the Welcome Dome (ends 6pm). See you there!<br><br>Reply STOP to opt out.</div></div>
       <div class="was cutbox"><b>✕ Removed #10 HH Last Call</b> + the 1-min-after-check-in trigger. HH now = 2 msgs, not 3–4.</div></div>
     <div class="arrow"></div>
 
@@ -205,7 +227,7 @@ body{font-family:'Ovo',serif;background:var(--seashell);color:var(--dark-slate-g
       <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> service prompt · 9 AM</div>
         <div class="bubble sms">Good morning, <span class="var">{First Name}</span>! We've scheduled a light villa refresh between 12–4pm — reply <b>YES</b> to confirm or <b>SKIP</b> by 10am. Quiet hours &amp; dark-sky tips are in your guidebook. On-site help 9am–7pm CT — just reply.</div></div>
       <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> the one offer · IF no spa pitched/booked</div>
-        <div class="bubble sms">Today only: a free hot-stones upgrade for the first 5 couples to book a spa treatment 💆 Reply <b>"SPA"</b> and we'll handle the rest. (If today's full, we'll set you up for after checkout 👌)</div></div>
+        <div class="bubble sms">Today only: a free hot-stones upgrade for the first 5 couples to book a spa treatment 💆 Reply <b>"SPA"</b> and we'll handle the rest. (If today's full, we'll set you up for after checkout 👌)<br><br>Reply STOP to opt out.</div></div>
       <div class="was cutbox"><b>✕ Fixed the pile-up:</b> was up to 5 texts in a day (Wellness + #9 + #10 + #11 + #12). Referral moved out; HH consolidated.</div></div>
     <div class="arrow"></div>
 
@@ -213,14 +235,14 @@ body{font-family:'Ovo',serif;background:var(--seashell);color:var(--dark-slate-g
       <div class="meta">Evening of day 2 / after Happy Hour<span class="chan">SMS</span></div>
       <div class="desc">A single ask after a peak moment. Post-stay ask (#20) kept.</div>
       <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span></div>
-        <div class="bubble sms">Loving it up here? 🤩 When you post, your friends will ask "where IS this?!" 🎁 Gift them $100 off Bolt Farm — when they book, you get $100 resort credit to use on this stay. Grab your private link: https://explore.boltfarmtreehouse.com/referral-program</div></div>
+        <div class="bubble sms">Loving it up here? 🤩 When you post, your friends will ask "where IS this?!" 🎁 Gift them $100 off Bolt Farm — when they book, you get $100 resort credit to use on this stay. Grab your private link: https://explore.boltfarmtreehouse.com/referral-program<br><br>Reply STOP to opt out.</div></div>
       <div class="was cutbox"><b>✕ Removed #11</b> (was ~21 hrs after #8). <b>↻ Retimed #8</b> off check-in day.</div></div>
     <div class="arrow"></div>
 
     <div class="node"><div class="top"><span class="tag keep">✓ KEPT</span><span class="title">Rebooking Offer</span></div>
       <div class="meta">Night before departure · 6:30 PM · IF not rebooked<span class="chan">SMS</span></div>
       <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span></div>
-        <div class="bubble sms">⏳ Claim your $425+ in return perks (expires at checkout)! Say <b>"Yes!"</b> to your next escape:<br>• Complimentary Bolt Farm Robe ($125)<br>• $150/day signature spa credit on your next stay<br>• 90 days to choose dates + free rescheduling<br>• Just $299 to reserve (100% applied to your stay)<br>✨ Re-live the magic: <span class="var">{rebook_link}</span></div></div>
+        <div class="bubble sms">⏳ Claim your $425+ in return perks (expires at checkout)! Say <b>"Yes!"</b> to your next escape:<br>• Complimentary Bolt Farm Robe ($125)<br>• $150/day signature spa credit on your next stay<br>• 90 days to choose dates + free rescheduling<br>• Just $299 to reserve (100% applied to your stay)<br>✨ Re-live the magic: <span class="var">{rebook_link}</span><br><br>Reply STOP to opt out.</div></div>
       <div class="desc" style="margin-top:8px;">→ Deposit confirmation (#13a) on purchase, unchanged.</div></div>
 
   </div>
@@ -258,9 +280,9 @@ body{font-family:'Ovo',serif;background:var(--seashell);color:var(--dark-slate-g
       <div class="meta">Departure → 85 days<span class="chan">SMS + Email</span></div>
       <div class="desc">Spread over weeks — low annoyance, kept as-is.</div>
       <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> #18a · deposit buyers · departure +2 hrs</div>
-        <div class="bubble sms">Hi <span class="var">{First Name}</span> — loved hosting you! 🎉 Your Rebooking Deposit is live. Book a quick call with our Trip-Planning Experts to lock in your return perks &amp; dates: <span class="var">{link}</span></div></div>
+        <div class="bubble sms">Hi <span class="var">{First Name}</span> — loved hosting you! 🎉 Your Rebooking Deposit is live. Book a quick call with our Trip-Planning Experts to lock in your return perks &amp; dates: <span class="var">{link}</span><br><br>Reply STOP to opt out.</div></div>
       <div class="msg"><div class="msg-head"><span class="cb sms">SMS</span> #18b · no deposit · 24 hrs after</div>
-        <div class="bubble sms">Hi <span class="var">{First Name}</span>! As a returning guest, enjoy complimentary Wellness Haven access for two ($350 value) on your next stay — claim within 48 hours. Our concierge will hold your preferred dates in a 10-min call: <span class="var">{call_link}</span></div></div>
+        <div class="bubble sms">Hi <span class="var">{First Name}</span>! As a returning guest, enjoy complimentary Wellness Haven access for two ($350 value) on your next stay — claim within 48 hours. Our concierge will hold your preferred dates in a 10-min call: <span class="var">{call_link}</span><br><br>Reply STOP to opt out.</div></div>
       <div class="msg"><div class="msg-head"><span class="cb email">EMAIL</span> #19 / #21 / #22 · 3, 14 &amp; 85 days · deposit not finalized</div>
         <div class="bubble email"><div class="subj"><b>Subjects:</b> "Your Next Dose of Reconnection" → "Plan your return in 10 minutes" → "5 Days to Redeem Your Perks"</div>
         Spaced email nudges to schedule the trip-planning call and finalize dates while perks are active. Kept as email — longer, non-urgent, easy to act on later.</div></div></div>
